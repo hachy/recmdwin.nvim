@@ -15,8 +15,11 @@ function M.setup()
     group = recmdwin,
     pattern = ":",
     callback = function()
+      local old_undolevels = vim.api.nvim_buf_get_option(0, "undolevels")
+      vim.api.nvim_buf_set_option(0, "undolevels", -1)
       vim.cmd [[silent g/^qa\?!\?$/d_]]
       vim.cmd [[silent g/^wq\?a\?!\?$/d_]]
+      vim.api.nvim_buf_set_option(0, "undolevels", old_undolevels)
     end,
   })
 
