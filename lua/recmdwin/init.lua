@@ -15,8 +15,8 @@ function M.setup()
     group = recmdwin,
     pattern = ":",
     callback = function()
-      vim.cmd [[g/^qa\?!\?$/d_]]
-      vim.cmd [[g/^wq\?a\?!\?$/d_]]
+      vim.cmd [[silent g/^qa\?!\?$/d_]]
+      vim.cmd [[silent g/^wq\?a\?!\?$/d_]]
     end,
   })
 
