@@ -13,19 +13,15 @@ function M.setup()
 
   vim.api.nvim_create_autocmd("CmdwinEnter", {
     group = recmdwin,
-    pattern = ":",
     callback = function()
-      local old_undolevels = vim.api.nvim_buf_get_option(0, "undolevels")
-      vim.api.nvim_buf_set_option(0, "undolevels", -1)
-      vim.cmd [[silent g/^qa\?!\?$/d_]]
-      vim.cmd [[silent g/^wq\?a\?!\?$/d_]]
-      vim.api.nvim_buf_set_option(0, "undolevels", old_undolevels)
-    end,
-  })
+      if vim.fn.getcmdwintype() == ":" then
+        local old_undolevels = vim.api.nvim_buf_get_option(0, "undolevels")
+        vim.api.nvim_buf_set_option(0, "undolevels", -1)
+        vim.cmd [[silent g/^qa\?!\?$/d_]]
+        vim.cmd [[silent g/^wq\?a\?!\?$/d_]]
+        vim.api.nvim_buf_set_option(0, "undolevels", old_undolevels)
+      end
 
-  vim.api.nvim_create_autocmd("CmdwinEnter", {
-    group = recmdwin,
-    callback = function()
       vim.api.nvim_buf_set_keymap(0, "n", "q", "<Cmd>quit<CR>", {
         nowait = true,
         noremap = true,
